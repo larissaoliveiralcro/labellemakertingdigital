@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Belle — Marketing Digital | Projeto de Administração</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root{
+    --wine:#6B2D3C;
+    --wine-dark:#4A1E2A;
+    --gold:#C9A87C;
+    --gold-soft:#E8DCD6;
+    --cream:#FDFBF9;
+    --ink:#2C2420;
+    --muted:#8A7B74;
+    --line:#EADFD8;
+    --rose:#A87B8A;
+    --shadow:0 18px 40px -18px rgba(74,30,42,.35);
+    --radius:18px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Poppins',sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,h4{font-family:'Playfair Display',serif;font-weight:600;line-height:1.2;color:var(--wine-dark)}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%}
+  .container{width:min(1140px,92%);margin-inline:auto}
+  .eyebrow{
+    display:inline-block;font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;
+    color:var(--gold);font-weight:600;margin-bottom:.6rem;
+  }
+  section{padding:clamp(3.5rem,8vw,6rem) 0}
+  .section-head{max-width:720px;margin-bottom:3rem}
+  .section-head h2{font-size:clamp(1.8rem,4vw,2.8rem);margin-bottom:1rem}
+  .section-head p{color:var(--muted)}
+
+  /* NAV */
+  nav{
+    position:sticky;top:0;z-index:100;
+    background:rgba(253,251,249,.88);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:1rem 0}
+  .brand{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:700;color:var(--wine);letter-spacing:.02em}
+  .brand span{color:var(--gold)}
+  .nav-links{display:flex;gap:1.6rem;list-style:none}
+  .nav-links a{
+    font-size:.85rem;font-weight:500;color:var(--muted);position:relative;padding:.2rem 0;transition:color .25s;
+  }
+  .nav-links a::after{
+    content:"";position:absolute;left:0;bottom:-2px;width:0;height:2px;background:var(--gold);transition:width .3s;
+  }
+  .nav-links a:hover,.nav-links a.active{color:var(--wine)}
+  .nav-links a:hover::after,.nav-links a.active::after{width:100%}
+  .nav-toggle{display:none;background:none;border:none;font-size:1.5rem;color:var(--wine);cursor:pointer}
+  @media(max-width:860px){
+    .nav-links{
+      position:absolute;top:100%;left:0;right:0;background:var(--cream);
+      flex-direction:column;gap:0;padding:.5rem 0;border-bottom:1px solid var(--line);
+      max-height:0;overflow:hidden;transition:max-height .35s ease;
+    }
+    .nav-links.open{max-height:420px}
+    .nav-links li{width:100%}
+    .nav-links a{display:block;padding:.9rem 6%}
+    .nav-toggle{display:block}
+  }
+
+  /* HERO */
+  header{
+    position:relative;
+    background:
+      radial-gradient(circle at 85% 15%, rgba(201,168,124,.18), transparent 45%),
+      radial-gradient(circle at 10% 90%, rgba(107,45,60,.08), transparent 50%),
+      var(--cream);
+    padding:clamp(4rem,10vw,7rem) 0 clamp(3rem,7vw,5rem);
+    overflow:hidden;
+  }
+  .hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:3rem;align-items:center}
+  @media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:2.5rem}}
+  .hero-badge{
+    display:inline-flex;align-items:center;gap:.5rem;
+    background:var(--wine);color:#fff;font-size:.72rem;letter-spacing:.22em;
+    text-transform:uppercase;font-weight:600;padding:.5rem 1rem;border-radius:100px;margin-bottom:1.5rem;
+  }
+  .hero-badge::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--gold)}
+  header h1{
+    font-size:clamp(2.8rem,7vw,4.8rem);color:var(--wine);margin-bottom:1rem;letter-spacing:-.01em;
+  }
+  header h1 em{font-style:italic;color:var(--gold)}
+  .hero-sub{font-size:1.1rem;color:var(--muted);max-width:520px;margin-bottom:2rem}
+  .hero-meta{display:flex;flex-wrap:wrap;gap:1rem;margin-bottom:2.2rem}
+  .member{
+    display:flex;align-items:center;gap:.65rem;
+    background:#fff;border:1px solid var(--line);border-radius:100px;
+    padding:.45rem .9rem .45rem .45rem;font-size:.85rem;box-shadow:0 6px 16px -12px rgba(74,30,42,.4);
+  }
+  .avatar{
+    width:32px;height:32px;border-radius:50%;display:grid;place-items:center;
+    background:linear-gradient(135deg,var(--wine),var(--rose));color:#fff;font-size:.78rem;font-weight:600;
+    font-family:'Poppins',sans-serif;flex-shrink:0;
+  }
+  .hero-actions{display:flex;flex-wrap:wrap;gap:.9rem}
+  .btn{
+    display:inline-flex;align-items:center;gap:.5rem;padding:.85rem 1.6rem;border-radius:100px;
+    font-size:.88rem;font-weight:500;cursor:pointer;border:none;transition:all .3s;font-family:'Poppins',sans-serif;
+  }
+  .btn-primary{background:var(--wine);color:#fff;box-shadow:0 12px 28px -12px rgba(107,45,60,.6)}
+  .btn-primary:hover{background:var(--wine-dark);transform:translateY(-2px)}
+  .btn-ghost{background:transparent;color:var(--wine);border:1.5px solid var(--gold)}
+  .btn-ghost:hover{background:var(--gold-soft);transform:translateY(-2px)}
+
+  .problem-card{
+    background:#fff;border-radius:var(--radius);padding:2rem;box-shadow:var(--shadow);
+    border:1px solid var(--line);position:relative;overflow:hidden;
+  }
+  .problem-card::before{
+    content:"";position:absolute;top:0;left:0;width:100%;height:5px;
+    background:linear-gradient(90deg,var(--wine),var(--gold));
+  }
+  .problem-card h3{font-size:1.25rem;margin-bottom:.8rem;display:flex;align-items:center;gap:.5rem}
+  .problem-card h3::before{content:"!";width:22px;height:22px;border-radius:50%;background:var(--wine);color:#fff;font-size:.8rem;display:grid;place-items:center;font-family:'Poppins',sans-serif;font-weight:700}
+  .problem-card p{font-size:.92rem;color:var(--muted);margin-bottom:1rem}
+  .problem-quote{
+    background:var(--cream);border-left:3px solid var(--gold);padding:.9rem 1.1rem;border-radius:0 10px 10px 0;
+    font-style:italic;font-size:.88rem;color:var(--wine-dark);font-family:'Playfair Display',serif;
+  }
+  .obj-pill{
+    display:flex;gap:.7rem;align-items:flex-start;margin-top:1.2rem;padding-top:1.2rem;border-top:1px dashed var(--line);
+    font-size:.85rem;color:var(--ink);
+  }
+  .obj-pill svg{flex-shrink:0;color:var(--gold);margin-top:3px}
+
+  /* CARDS */
+  .grid{display:grid;gap:1.5rem}
+  .grid-3{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+  .grid-2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+  .card{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:1.8rem;
+    transition:transform .35s,box-shadow .35s;position:relative;
+  }
+  .card:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
+  .card-icon{
+    width:48px;height:48px;border-radius:14px;display:grid;place-items:center;margin-bottom:1.1rem;
+    background:linear-gradient(135deg,var(--gold-soft),#fff);color:var(--wine);border:1px solid var(--line);
+  }
+  .card h3{font-size:1.15rem;margin-bottom:.6rem}
+  .card p{font-size:.9rem;color:var(--muted)}
+
+  #tema{background:linear-gradient(180deg,#fff,var(--cream))}
+  .highlight-box{
+    background:linear-gradient(135deg,var(--wine),var(--wine-dark));
+    color:#fff;border-radius:var(--radius);padding:2.5rem;position:relative;overflow:hidden;
+  }
+  .highlight-box h3{color:#fff;font-size:1.6rem;margin-bottom:1rem}
+  .highlight-box p{color:rgba(255,255,255,.85);font-size:.95rem}
+  .highlight-box::after{
+    content:"";position:absolute;right:-60px;bottom:-60px;width:220px;height:220px;border-radius:50%;
+    background:radial-gradient(circle,rgba(201,168,124,.35),transparent 70%);
+  }
+  .example-card{display:flex;gap:1rem;align-items:flex-start}
+  .example-card .num{
+    font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--gold);font-weight:700;line-height:1;flex-shrink:0;
+  }
+
+  /* PESQUISA */
+  .method-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.2rem;margin-bottom:2.5rem}
+  .method-card{
+    background:#fff;border:1px solid var(--line);border-radius:16px;padding:1.5rem;text-align:center;
+  }
+  .method-card .big{font-family:'Playfair Display',serif;font-size:2.4rem;color:var(--wine);line-height:1}
+  .method-card .label{font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-top:.4rem}
+  .method-card p{font-size:.8rem;color:var(--muted);margin-top:.5rem}
+
+  .questions-list{list-style:none;counter-reset:q;display:grid;gap:1rem}
+  .questions-list li{
+    counter-increment:q;background:#fff;border:1px solid var(--line);border-radius:14px;padding:1.2rem 1.4rem 1.2rem 3.5rem;
+    position:relative;font-size:.92rem;
+  }
+  .questions-list li::before{
+    content:counter(q);position:absolute;left:1rem;top:1.1rem;width:26px;height:26px;border-radius:50%;
+    background:var(--wine);color:#fff;display:grid;place-items:center;font-size:.8rem;font-weight:600;
+  }
+  .questions-list li .q-type{font-size:.72rem;color:var(--gold);font-weight:600;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:.2rem}
+  .options{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.6rem}
+  .options span{
+    font-size:.75rem;background:var(--cream);border:1px solid var(--line);border-radius:100px;
+    padding:.2rem .7rem;color:var(--muted);
+  }
+
+  .charts-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;margin-top:2rem}
+  .chart-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:1.5rem;display:flex;flex-direction:column}
+  .chart-card h4{font-size:1rem;margin-bottom:.2rem;font-family:'Poppins',sans-serif;font-weight:600;color:var(--wine-dark)}
+  .chart-card .q-label{font-size:.75rem;color:var(--muted);margin-bottom:1rem}
+  .chart-wrap{position:relative;height:230px;flex:1}
+  @media(max-width:480px){.chart-wrap{height:200px}}
+
+  .findings{display:grid;gap:.9rem;margin-top:2.5rem}
+  .finding{
+    display:flex;gap:1rem;background:#fff;border:1px solid var(--line);border-radius:14px;padding:1.1rem 1.3rem;
+    align-items:flex-start;
+  }
+  .finding .dot{width:10px;height:10px;border-radius:50%;background:var(--gold);margin-top:.55rem;flex-shrink:0}
+  .finding p{font-size:.9rem;color:var(--ink)}
+  .finding strong{color:var(--wine)}
+
+  /* RESPOSTAS ABERTAS */
+  .open-answers{
+    margin-top:2rem;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:2rem;
+  }
+  .open-answers h3{font-size:1.2rem;margin-bottom:.4rem}
+  .open-answers > p{font-size:.85rem;color:var(--muted);margin-bottom:1.5rem}
+  .theme-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.5rem}
+  .theme-tags span{
+    background:var(--cream);border:1px solid var(--line);color:var(--wine-dark);
+    padding:.35rem .9rem;border-radius:100px;font-size:.78rem;font-weight:500;
+  }
+  .quote-list{display:grid;gap:.8rem}
+  .quote{
+    border-left:3px solid var(--gold-soft);padding:.6rem 1rem;font-size:.85rem;color:var(--muted);
+    font-style:italic;background:var(--cream);border-radius:0 8px 8px 0;
+  }
+
+  /* ANALISE */
+  #analise{background:linear-gradient(180deg,var(--cream),#fff)}
+  .analysis-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.3rem}
+  .analysis-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:1.6rem}
+  .analysis-card .tag{
+    font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);font-weight:600;display:block;margin-bottom:.6rem;
+  }
+  .analysis-card h3{font-size:1.05rem;margin-bottom:.5rem}
+  .analysis-card p{font-size:.88rem;color:var(--muted)}
+  .opinion{
+    margin-top:2rem;background:linear-gradient(135deg,#fff,var(--cream));
+    border:1px solid var(--gold-soft);border-left:5px solid var(--gold);
+    border-radius:14px;padding:2rem;
+  }
+  .opinion h3{font-size:1.2rem;margin-bottom:.7rem;display:flex;align-items:center;gap:.6rem}
+  .opinion p{font-size:.92rem;color:var(--ink)}
+
+  /* SOLUCAO */
+  .plan-steps{display:grid;gap:1rem;margin-top:1.5rem}
+  .step{
+    display:grid;grid-template-columns:auto 1fr;gap:1.2rem;background:#fff;border:1px solid var(--line);
+    border-radius:14px;padding:1.3rem 1.5rem;align-items:start;
+  }
+  .step .n{
+    width:36px;height:36px;border-radius:50%;background:var(--wine);color:#fff;display:grid;place-items:center;
+    font-weight:600;font-family:'Playfair Display',serif;
+  }
+  .step h4{font-family:'Poppins',sans-serif;font-size:.95rem;font-weight:600;color:var(--wine-dark);margin-bottom:.2rem}
+  .step p{font-size:.86rem;color:var(--muted)}
+
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:1.5rem}
+  @media(max-width:700px){.two-col{grid-template-columns:1fr}}
+  .list-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:1.6rem}
+  .list-card h3{font-size:1.05rem;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
+  .list-card ul{list-style:none;display:grid;gap:.65rem}
+  .list-card li{font-size:.87rem;color:var(--muted);padding-left:1.4rem;position:relative}
+  .list-card li::before{content:"✓";position:absolute;left:0;color:var(--gold);font-weight:700}
+  .list-card.warn li::before{content:"•";color:var(--rose)}
+
+  /* CONCLUSAO */
+  #conclusao{background:linear-gradient(180deg,#fff,var(--gold-soft))}
+  .reflection-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.2rem}
+  .reflection{background:#fff;border:1px solid var(--line);border-radius:16px;padding:1.6rem}
+  .reflection .who{display:flex;align-items:center;gap:.7rem;margin-bottom:.9rem}
+  .reflection .who .avatar{width:38px;height:38px;font-size:.85rem}
+  .reflection .who strong{display:block;font-size:.9rem;color:var(--wine-dark)}
+  .reflection .who small{font-size:.75rem;color:var(--muted)}
+  .reflection p{font-size:.86rem;color:var(--muted)}
+
+  .table-wrap{overflow-x:auto;margin-top:1.5rem;border-radius:14px;border:1px solid var(--line);background:#fff}
+  table{width:100%;border-collapse:collapse;font-size:.83rem;min-width:640px}
+  thead{background:var(--wine);color:#fff}
+  th,td{padding:.85rem 1rem;text-align:left;vertical-align:top}
+  tbody tr{border-bottom:1px solid var(--line)}
+  tbody tr:last-child{border-bottom:none}
+  tbody tr:nth-child(even){background:var(--cream)}
+  td:first-child{font-weight:500;color:var(--wine);white-space:nowrap}
+
+  .sources{margin-top:2rem;background:#fff;border:1px solid var(--line);border-radius:16px;padding:1.6rem}
+  .sources h3{font-size:1.05rem;margin-bottom:1rem}
+  .sources ol{padding-left:1.2rem;display:grid;gap:.5rem}
+  .sources li{font-size:.84rem;color:var(--muted)}
+
+  footer{background:var(--wine-dark);color:rgba(255,255,255,.75);padding:3rem 0 2rem;text-align:center}
+  footer .brand{color:#fff;font-size:1.6rem}
+  footer .brand span{color:var(--gold)}
+  footer p{font-size:.83rem;margin-top:.8rem}
+  footer .disclaimer{max-width:640px;margin:1.4rem auto 0;font-size:.76rem;color:rgba(255,255,255,.5);line-height:1.7}
+
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  #toTop{
+    position:fixed;right:1.2rem;bottom:1.2rem;width:44px;height:44px;border-radius:50%;
+    background:var(--wine);color:#fff;border:none;cursor:pointer;display:grid;place-items:center;
+    box-shadow:var(--shadow);opacity:0;visibility:hidden;transition:all .3s;z-index:90;font-size:1.1rem;
+  }
+  #toTop.show{opacity:1;visibility:visible}
+  #toTop:hover{background:var(--gold);transform:translateY(-3px)}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="container nav-inner">
+    <a href="#inicio" class="brand">La <span>Belle</span></a>
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menu">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#inicio">Início</a></li>
+      <li><a href="#tema">Tema</a></li>
+      <li><a href="#pesquisa">Pesquisa</a></li>
+      <li><a href="#analise">Análise</a></li>
+      <li><a href="#solucao">Solução</a></li>
+      <li><a href="#conclusao">Conclusão</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header id="inicio">
+  <div class="container hero-grid">
+    <div>
+      <span class="hero-badge">Projeto de Administração · Marketing</span>
+      <h1>La <em>Belle</em></h1>
+      <p class="hero-sub">
+        Marketing Digital como ferramenta para pequenos negócios conquistarem clientes,
+        fortalecerem a marca e aumentarem seus resultados.
+      </p>
+
+      <div class="hero-meta">
+        <div class="member"><span class="avatar">LC</span> Larissa Cabral de Oliveira</div>
+        <div class="member"><span class="avatar">LT</span> Livia Tayná Ferreira da Silva</div>
+        <div class="member"><span class="avatar">MC</span> Maria Clara Risi</div>
+      </div>
+
+      <div class="hero-actions">
+        <a href="#tema" class="btn btn-primary">Conhecer o projeto →</a>
+        <a href="#pesquisa" class="btn btn-ghost">Ver pesquisa</a>
+      </div>
+    </div>
+
+    <div class="problem-card">
+      <h3>Situação-problema</h3>
+      <p>
+        A <strong>La Belle</strong>, empresa do ramo de roupas e acessórios, tem ótimos produtos,
+        porém pouca presença na divulgação — especialmente nas redes sociais. Isso tem feito a
+        empresa perder clientes e vendas para concorrentes.
+      </p>
+      <div class="problem-quote">
+        “Como a falta de divulgação afeta o reconhecimento da marca e as vendas da La Belle?”
+      </div>
+      <div class="obj-pill">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+        <span><strong>Objetivo do site:</strong> explicar como estratégias de Marketing Digital podem ajudar pequenos negócios a conquistar clientes e melhorar seus resultados.</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- TEMA -->
+<section id="tema">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Conhecendo o tema</span>
+      <h2>O que é Marketing Digital?</h2>
+      <p>Conceitos essenciais para compreender por que a presença digital é decisiva para a La Belle.</p>
+    </div>
+
+    <div class="grid grid-2" style="margin-bottom:1.5rem">
+      <div class="card reveal">
+        <div class="card-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-6"/></svg>
+        </div>
+        <h3>Definição</h3>
+        <p>
+          O Marketing Digital é um ecossistema estratégico que utiliza a internet e os meios digitais
+          para criar relacionamentos, resolver problemas e vender produtos ou serviços. É focado em
+          atrair o público certo, no momento certo, com mensagens personalizadas.
+        </p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.2 4.2l2.8 2.8M17 17l2.8 2.8M1 12h4M19 12h4M4.2 19.8L7 17M17 7l2.8-2.8"/></svg>
+        </div>
+        <h3>Tráfego Pago</h3>
+        <p>
+          Anúncios patrocinados no Google, Instagram, Facebook e YouTube permitem aparecer imediatamente
+          para um público específico (idade, localização, interesses e comportamento). Com precisão
+          matemática, a empresa sabe exatamente quanto custou atrair cada visitante e qual foi o retorno.
+        </p>
+      </div>
+    </div>
+
+    <div class="highlight-box reveal" style="margin-bottom:1.5rem">
+      <h3>Qual a importância do Marketing para as empresas?</h3>
+      <p>
+        O marketing acompanha a mudança de comportamento do consumidor moderno, que pesquisa, compara e
+        compra prioritariamente pela internet. Estar fora do ambiente digital significa, na prática,
+        <strong>ser invisível para o mercado</strong>. Com uma boa estratégia, pequenas empresas locais
+        concorrem diretamente com grandes corporações e alcançam seu público com investimentos iniciais baixos.
+      </p>
+    </div>
+
+    <h3 class="reveal" style="font-size:1.35rem;margin-bottom:1.2rem">Principais atividades</h3>
+    <div class="grid grid-3" style="margin-bottom:2.5rem">
+      <div class="card reveal">
+        <div class="card-icon">✎</div>
+        <h3>Criação de conteúdo</h3>
+        <p>Educa e atrai visitantes de forma orgânica, construindo autoridade e relacionamento com o público.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">◎</div>
+        <h3>Gestão de mídia paga</h3>
+        <p>Configuração e monitoramento de anúncios patrocinados direcionados ao público-alvo, com foco em vendas rápidas.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">▤</div>
+        <h3>Análise de dados</h3>
+        <p>Monitoramento de métricas e retorno financeiro para corrigir erros e otimizar os investimentos do negócio.</p>
+      </div>
+    </div>
+
+    <h3 class="reveal" style="font-size:1.35rem;margin-bottom:1.2rem">Exemplos de aplicação</h3>
+    <div class="grid grid-2">
+      <div class="card example-card reveal"><span class="num">01</span><div><h3>Provador em vídeo</h3><p>Gravar o caimento dos looks e postar no Instagram e TikTok com link direto para compra.</p></div></div>
+      <div class="card example-card reveal"><span class="num">02</span><div><h3>Anúncios de remarketing</h3><p>Exibir anúncios para clientes que olharam peças ou abandonaram o carrinho no site.</p></div></div>
+      <div class="card example-card reveal"><span class="num">03</span><div><h3>Anúncios locais</h3><p>Direcionar propagandas das novas coleções apenas para mulheres que moram perto da loja física.</p></div></div>
+      <div class="card example-card reveal"><span class="num">04</span><div><h3>Parcerias com influenciadoras</h3><p>Enviar looks para blogueiras da região postarem e marcarem o perfil da loja.</p></div></div>
+      <div class="card example-card reveal"><span class="num">05</span><div><h3>Fidelização via WhatsApp</h3><p>Enviar lançamentos em primeira mão e benefícios exclusivos para uma lista de clientes VIPs.</p></div></div>
+      <div class="card example-card reveal"><span class="num">06</span><div><h3>Presença no Google</h3><p>Manter fotos e contatos atualizados no mapa do Google para quem buscar lojas de roupas na cidade.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PESQUISA -->
+<section id="pesquisa" style="background:#fff">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Pesquisa realizada pelo grupo</span>
+      <h2>Como investigamos o problema</h2>
+      <p>Pesquisa própria realizada por meio de questionário online (Google Forms) e observação da empresa.</p>
+    </div>
+
+    <div class="method-grid">
+      <div class="method-card reveal">
+        <div class="big">1</div>
+        <div class="label">Profissional entrevistado</div>
+        <p>Entrevista com a proprietária da La Belle</p>
+      </div>
+      <div class="method-card reveal">
+        <div class="big">16</div>
+        <div class="label">Pessoas no questionário</div>
+        <p>Questionário online aplicado pelo grupo</p>
+      </div>
+      <div class="method-card reveal">
+        <div class="big">1</div>
+        <div class="label">Observação em empresa</div>
+        <p>Análise do perfil e da frequência de postagens</p>
+      </div>
+    </div>
+
+    <h3 class="reveal" style="font-size:1.35rem;margin-bottom:1.2rem">Perguntas utilizadas no questionário</h3>
+    <ol class="questions-list reveal">
+      <li><span class="q-type">Múltipla escolha</span>Você conhece alguma empresa ou negócio que tenha pouca divulgação?
+        <div class="options"><span>Sim</span><span>Não</span><span>Talvez</span></div>
+      </li>
+      <li><span class="q-type">Múltipla escolha</span>Você costuma conhecer novas empresas por meio de propagandas?
+        <div class="options"><span>Sim</span><span>Não</span><span>Talvez</span></div>
+      </li>
+      <li><span class="q-type">Múltipla escolha</span>Você já deixou de comprar um produto ou contratar um serviço por não conhecer a empresa?
+        <div class="options"><span>Sim</span><span>Não</span><span>Talvez</span></div>
+      </li>
+      <li><span class="q-type">Múltipla escolha</span>Na sua opinião, a falta de divulgação prejudica o crescimento de uma empresa?
+        <div class="options"><span>Sim, muito</span><span>Sim, um pouco</span><span>Não prejudica</span></div>
+      </li>
+      <li><span class="q-type">Múltipla escolha</span>Quais os meios de divulgação que você considera mais importantes para uma empresa?
+        <div class="options"><span>Redes sociais</span><span>Panfletos e cartazes</span><span>TV e rádio</span><span>Indicação</span><span>Sites e anúncios</span></div>
+      </li>
+      <li><span class="q-type">Resposta aberta</span>Na sua opinião, por que muitas empresas não investem em divulgação?
+        <div class="options"><span>13 respostas descritivas</span></div>
+      </li>
+    </ol>
+
+    <h3 class="reveal" style="font-size:1.35rem;margin:2.5rem 0 0">Resultados</h3>
+    <div class="charts-grid">
+
+      <div class="chart-card reveal">
+        <h4>Conhece empresa com pouca divulgação?</h4>
+        <span class="q-label">Pergunta 1 · 16 respostas</span>
+        <div class="chart-wrap"><canvas id="chart1"></canvas></div>
+      </div>
+
+      <div class="chart-card reveal">
+        <h4>Conhece novas empresas por propagandas?</h4>
+        <span class="q-label">Pergunta 2 · 16 respostas</span>
+        <div class="chart-wrap"><canvas id="chart2"></canvas></div>
+      </div>
+
+      <div class="chart-card reveal">
+        <h4>Já deixou de comprar por não conhecer?</h4>
+        <span class="q-label">Pergunta 3 · 16 respostas</span>
+        <div class="chart-wrap"><canvas id="chart3"></canvas></div>
+      </div>
+
+      <div class="chart-card reveal">
+        <h4>A falta de divulgação prejudica?</h4>
+        <span class="q-label">Pergunta 4 · 16 respostas</span>
+        <div class="chart-wrap"><canvas id="chart4"></canvas></div>
+      </div>
+
+      <div class="chart-card reveal" style="grid-column:1/-1;max-width:560px;margin-inline:auto">
+        <h4>Meios de divulgação mais importantes</h4>
+        <span class="q-label">Pergunta 5 · 16 respostas</span>
+        <div class="chart-wrap"><canvas id="chart5"></canvas></div>
+      </div>
+
+    </div>
+
+    <!-- RESPOSTAS ABERTAS -->
+    <div class="open-answers reveal">
+      <h3>Pergunta 6 — Por que muitas empresas não investem em divulgação?</h3>
+      <p>13 respostas abertas. Os temas mais citados foram:</p>
+      <div class="theme-tags">
+        <span>Falta de recursos financeiros</span>
+        <span>Falta de conhecimento / informação</span>
+        <span>Medo de não ter retorno</span>
+        <span>Má gestão</span>
+        <span>Não veem necessidade</span>
+      </div>
+      <div class="quote-list">
+        <div class="quote">“Por falta de capital e má gestão.”</div>
+        <div class="quote">“Por conta da falta de conhecimento sobre como a divulgação pode alavancar as vendas da empresa.”</div>
+        <div class="quote">“Por falta de recursos financeiros ou por medo de ter feito um investimento em divulgações e não receber retorno.”</div>
+        <div class="quote">“Por não saberem o quanto isso ajuda o crescimento, falta de informação.”</div>
+        <div class="quote">“Porque não entendem o quanto isso influencia na quantidade de clientes.”</div>
+      </div>
+    </div>
+
+    <h3 class="reveal" style="font-size:1.35rem;margin:2.5rem 0 1rem">Principais descobertas</h3>
+    <div class="findings">
+      <div class="finding reveal"><span class="dot"></span><p><strong>81,3% dos respondentes</strong> costumam conhecer novas empresas por meio de propagandas — a divulgação é o principal canal de descoberta.</p></div>
+      <div class="finding reveal"><span class="dot"></span><p><strong>81,3% acreditam que a falta de divulgação prejudica muito</strong> o crescimento de uma empresa, e nenhum participante respondeu que não prejudica.</p></div>
+      <div class="finding reveal"><span class="dot"></span><p><strong>62,5% já deixaram de comprar</strong> um produto ou contratar um serviço por não conhecer a empresa — perda direta de vendas.</p></div>
+      <div class="finding reveal"><span class="dot"></span><p><strong>75% conhecem alguma empresa</strong> com pouca divulgação, o que confirma que o problema da La Belle não é um caso isolado.</p></div>
+      <div class="finding reveal"><span class="dot"></span><p><strong>Redes sociais (62,5%)</strong> e <strong>sites/anúncios na internet (25%)</strong> são os meios mais valorizados, seguidos de TV/rádio e indicação (6,25% cada). Panfletos não foram citados.</p></div>
+      <div class="finding reveal"><span class="dot"></span><p>As respostas abertas apontam que as empresas <strong>não investem por falta de recursos, de conhecimento e medo de não ter retorno</strong> — reforçando que o problema é de gestão, não de produto.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ANALISE -->
+<section id="analise">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Análise dos resultados</span>
+      <h2>O que os dados nos dizem</h2>
+      <p>Interpretação dos dados coletados, com a opinião fundamentada do grupo.</p>
+    </div>
+
+    <div class="analysis-grid">
+      <div class="analysis-card reveal">
+        <span class="tag">O que os dados demonstram</span>
+        <h3>Divulgação é decisiva</h3>
+        <p>81,3% conhecem novas empresas por propagandas e 62,5% já deixaram de comprar por não conhecer uma empresa. A divulgação está diretamente ligada à descoberta e à decisão de compra.</p>
+      </div>
+      <div class="analysis-card reveal">
+        <span class="tag">Resultado mais interessante</span>
+        <h3>Reconhecem o impacto, mas empresas não investem</h3>
+        <p>81,3% afirmam que a falta de divulgação prejudica muito o crescimento. Ao mesmo tempo, as respostas abertas mostram que as empresas não investem por falta de conhecimento e medo de não ter retorno — há uma contradição clara.</p>
+      </div>
+      <div class="analysis-card reveal">
+        <span class="tag">Resultado inesperado</span>
+        <h3>Panfletos não foram citados</h3>
+        <p>Nenhum participante considerou panfletos e cartazes importantes. O digital domina: redes sociais (62,5%) e sites/anúncios (25%) somam 87,5% das preferências.</p>
+      </div>
+      <div class="analysis-card reveal">
+        <span class="tag">Problema identificado</span>
+        <h3>Empresas subestimam a divulgação</h3>
+        <p>Mesmo com o público reconhecendo o impacto da divulgação, as empresas não investem por falta de informação, recursos ou medo de não ter retorno — o que gera perda de clientes.</p>
+      </div>
+      <div class="analysis-card reveal">
+        <span class="tag">O que pode ser melhorado</span>
+        <h3>Planejamento com baixo custo</h3>
+        <p>Priorizar redes sociais e anúncios online, com planejamento e metas claras, reduz o medo do investimento e aumenta a previsibilidade de retorno.</p>
+      </div>
+    </div>
+
+    <div class="opinion reveal">
+      <h3>✦ Opinião fundamentada do grupo</h3>
+      <p>
+        Com base nos dados coletados, concluímos que o problema da La Belle <strong>não é o produto</strong>,
+        mas a <strong>falta de uma estratégia digital consistente</strong>. Os números mostram que o consumidor
+        conhece novas empresas por propagandas (81,3%) e desiste de comprar quando não conhece o negócio
+        (62,5%). A maioria (81,3%) reconhece que a falta de divulgação prejudica muito o crescimento. Portanto,
+        uma atuação digital estruturada — mesmo com baixo investimento — tem potencial direto de reverter o
+        cenário de perda de clientes e aumentar as vendas da La Belle.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUCAO -->
+<section id="solucao" style="background:#fff">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Proposta de solução</span>
+      <h2>Plano de Marketing Digital para a La Belle</h2>
+      <p>Proposta administrativa elaborada a partir do problema identificado na pesquisa.</p>
+    </div>
+
+    <div class="two-col">
+      <div class="list-card reveal">
+        <h3>⚠ Problema identificado</h3>
+        <ul class="warn">
+          <li>Baixa frequência de postagens (observação: ~2x por semana)</li>
+          <li>Ausência de tráfego pago</li>
+          <li>Sem catálogo ou link de compra na bio</li>
+          <li>Falta de integração com WhatsApp</li>
+          <li>Pouca prova social (depoimentos e avaliações)</li>
+        </ul>
+      </div>
+      <div class="list-card reveal">
+        <h3>✓ Solução sugerida</h3>
+        <ul>
+          <li>Plano de conteúdo com calendário editorial</li>
+          <li>Otimização do perfil no Instagram</li>
+          <li>Catálogo digital com link na bio</li>
+          <li>WhatsApp Business com lista VIP</li>
+          <li>Pequeno orçamento mensal em tráfego pago local</li>
+          <li>Parcerias com influenciadoras da região</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 class="reveal" style="font-size:1.35rem;margin:2.5rem 0 0">Como seria implementado</h3>
+    <div class="plan-steps">
+      <div class="step reveal"><span class="n">1</span><div><h4>Diagnóstico e planejamento (Semana 1–2)</h4><p>Definição do público-alvo, análise dos concorrentes e criação do calendário editorial.</p></div></div>
+      <div class="step reveal"><span class="n">2</span><div><h4>Otimização do perfil (Semana 3)</h4><p>Atualização da bio, destaques, link de catálogo e padronização visual das postagens.</p></div></div>
+      <div class="step reveal"><span class="n">3</span><div><h4>Produção de conteúdo (Semana 4 em diante)</h4><p>Postagens 3x por semana com provadores em vídeo, looks, bastidores e depoimentos de clientes.</p></div></div>
+      <div class="step reveal"><span class="n">4</span><div><h4>Ativação do WhatsApp Business (Semana 5)</h4><p>Criação de lista VIP com lançamentos e benefícios exclusivos; respostas rápidas automatizadas.</p></div></div>
+      <div class="step reveal"><span class="n">5</span><div><h4>Tráfego pago local (Semana 6)</h4><p>Campanhas com orçamento inicial de R$ 300/mês segmentadas por raio geográfico e interesses.</p></div></div>
+      <div class="step reveal"><span class="n">6</span><div><h4>Medição e ajustes (contínuo)</h4><p>Acompanhamento de métricas (alcance, engajamento, conversões) e otimização mensal.</p></div></div>
+    </div>
+
+    <div class="two-col" style="margin-top:2rem">
+      <div class="list-card reveal">
+        <h3>▤ Recursos necessários</h3>
+        <ul>
+          <li>Smartphone com boa câmera</li>
+          <li>Ferramentas gratuitas (Canva, Meta Business Suite)</li>
+          <li>Orçamento inicial de R$ 300/mês em anúncios</li>
+          <li>Tempo dedicado: ~5h semanais</li>
+        </ul>
+      </div>
+      <div class="list-card reveal">
+        <h3>★ Possíveis benefícios</h3>
+        <ul>
+          <li>Aumento da visibilidade local</li>
+          <li>Mais conversões de vendas</li>
+          <li>Fidelização de clientes</li>
+          <li>Resultados mensuráveis e ajustáveis</li>
+          <li>Fortalecimento da marca</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="list-card warn reveal" style="margin-top:1.5rem">
+      <h3>⚠ Possíveis dificuldades</h3>
+      <ul class="warn">
+        <li>Manter a consistência das postagens</li>
+        <li>Curva de aprendizado das ferramentas</li>
+        <li>Orçamento inicial limitado</li>
+        <li>Conciliação com a rotina da loja</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CONCLUSAO -->
+<section id="conclusao">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Conclusão</span>
+      <h2>O que aprendemos com o projeto</h2>
+      <p>Reflexões do grupo e documentação do uso da Inteligência Artificial.</p>
+    </div>
+
+    <div class="reflection-grid">
+      <div class="reflection reveal">
+        <div class="who"><span class="avatar">LC</span><div><strong>Larissa Cabral</strong><small>Integrante</small></div></div>
+        <p>Percebi que o marketing digital vai muito além de “postar bonito”. Ele exige estratégia, consistência e análise de dados. Aprendi a olhar para os números como ferramenta de decisão.</p>
+      </div>
+      <div class="reflection reveal">
+        <div class="who"><span class="avatar">LT</span><div><strong>Livia Tayná</strong><small>Integrante</small></div></div>
+        <p>A pesquisa mostrou que o problema não estava no produto, mas na comunicação. Entender isso mudou completamente a forma como eu enxergo pequenos negócios.</p>
+      </div>
+      <div class="reflection reveal">
+        <div class="who"><span class="avatar">MC</span><div><strong>Maria Clara Risi</strong><small>Integrante</small></div></div>
+        <p>Aprendi a usar a IA como apoio real: para organizar ideias, interpretar dados e até programar. Mas o mais importante foi perceber que as decisões continuam sendo nossas.</p>
+      </div>
+    </div>
+
+    <h3 class="reveal" style="font-size:1.35rem;margin:3rem 0 0">Diário de utilização da Inteligência Artificial</h3>
+    <p class="reveal" style="color:var(--muted);font-size:.9rem;margin-top:.4rem">Registro das principais interações com ferramentas de IA durante o projeto.</p>
+    <div class="table-wrap reveal">
+      <table>
+        <thead>
+          <tr><th>Data</th><th>Ferramenta</th><th>O que foi solicitado</th><th>Como a resposta foi utilizada</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>10/10</td><td>Gemini</td><td>Explicação sobre Marketing Digital e tráfego pago</td><td>Base para a seção “Conhecendo o tema”, adaptada pelo grupo</td></tr>
+          <tr><td>12/10</td><td>ChatGPT</td><td>Sugestões de perguntas para o questionário</td><td>Foram escolhidas 6 perguntas e modificadas pelo grupo</td></tr>
+          <tr><td>15/10</td><td>ChatGPT</td><td>Apoio na análise dos dados coletados (16 respostas)</td><td>Utilizado como suporte à interpretação feita pelo grupo</td></tr>
+          <tr><td>18/10</td><td>Gemini</td><td>Sugestões de estrutura e títulos para o site</td><td>Estrutura definida e ajustada pelo grupo</td></tr>
+          <tr><td>20/10</td><td>ChatGPT</td><td>Código HTML, CSS e JavaScript do site</td><td>Código base gerado e adaptado pelos alunos</td></tr>
+          <tr><td>22/10</td><td>Gemini</td><td>Revisão de acessibilidade e organização</td><td>Ajustes aplicados na versão final</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="sources reveal">
+      <h3>📚 Fontes utilizadas</h3>
+      <ol>
+        <li>KOTLER, Philip. <em>Marketing 4.0</em>. Rio de Janeiro: Sextante, 2017.</li>
+        <li>SEBRAE. <em>Marketing Digital para pequenas empresas</em>. Disponível em: sebrae.com.br.</li>
+        <li>ROCK CONTENT. <em>Guia completo de Marketing Digital</em>. Disponível em: rockcontent.com.</li>
+        <li>THINK WITH GOOGLE. <em>Tendências de consumo e comportamento digital</em>.</li>
+        <li>INSTAGRAM BUSINESS. <em>Central de Ajuda para Empresas</em>.</li>
+        <li>Entrevista realizada com a proprietária da La Belle (out/2026).</li>
+        <li>Questionário online aplicado pelo grupo — 16 respostas (out/2026).</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="brand">La <span>Belle</span></div>
+    <p>Projeto de Administração · Tema: Marketing · 2026</p>
+    <p class="disclaimer">
+      Site desenvolvido como atividade acadêmica. Os dados apresentados foram coletados pelo grupo.
+      A Inteligência Artificial foi utilizada como ferramenta de apoio à pesquisa, organização e programação,
+      conforme registrado no Diário de Utilização da IA.
+    </p>
+  </div>
+</footer>
+
+<button id="toTop" aria-label="Voltar ao topo">↑</button>
+
+<script>
+/* NAV */
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+navLinks.querySelectorAll('a').forEach(a =>
+  a.addEventListener('click', () => navLinks.classList.remove('open'))
+);
+
+/* ACTIVE LINK */
+const sections = [...document.querySelectorAll('section[id], header[id]')];
+const linkMap = [...document.querySelectorAll('.nav-links a')];
+const spy = () => {
+  const y = window.scrollY + 120;
+  let current = 'inicio';
+  sections.forEach(s => { if (s.offsetTop <= y) current = s.id; });
+  linkMap.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + current));
+};
+window.addEventListener('scroll', spy);
+
+/* REVEAL */
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+/* BACK TO TOP */
+const toTop = document.getElementById('toTop');
+window.addEventListener('scroll', () => toTop.classList.toggle('show', window.scrollY > 500));
+toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+/* ================= GRÁFICOS COM DADOS REAIS ================= */
+const palette = ['#6B2D3C', '#C9A87C', '#A87B8A', '#E8DCD6', '#4A1E2A'];
+const baseOpts = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+    legend: {
+      position: 'bottom',
+      labels: { font: { family: 'Poppins', size: 11 }, color: '#8A7B74', padding: 14, boxWidth: 12, boxHeight: 12, usePointStyle: true }
+    },
+    tooltip: {
+      backgroundColor: '#4A1E2A', titleFont: { family: 'Poppins' }, bodyFont: { family: 'Poppins' },
+      padding: 10, cornerRadius: 8, displayColors: false,
+      callbacks: {
+        label: (ctx) => {
+          const total = ctx.dataset.data.reduce((a,b)=>a+b,0);
+          const pct = ((ctx.parsed / total) * 100).toFixed(1).replace('.', ',');
+          return ` ${ctx.parsed} respostas (${pct}%)`;
+        }
+      }
+    }
+  }
+};
+
+function makePie(id, labels, data) {
+  new Chart(document.getElementById(id), {
+    type: 'doughnut',
+    data: { labels, datasets: [{ data, backgroundColor: palette, borderWidth: 0, hoverOffset: 6 }] },
+    options: { ...baseOpts, cutout: '62%' }
+  });
+}
+function makeBar(id, labels, data, horizontal = false) {
+  new Chart(document.getElementById(id), {
+    type: 'bar',
+    data: { labels, datasets: [{ data, backgroundColor: palette, borderRadius: 8, maxBarThickness: 34 }] },
+    options: {
+      ...baseOpts,
+      indexAxis: horizontal ? 'y' : 'x',
+      plugins: {
+        ...baseOpts.plugins,
+        legend: { display: false },
+        tooltip: {
+          ...baseOpts.plugins.tooltip,
+          callbacks: {
+            label: (ctx) => {
+              const total = ctx.dataset.data.reduce((a,b)=>a+b,0);
+              const pct = ((ctx.parsed.x ?? ctx.parsed.y) / total * 100).toFixed(1).replace('.', ',');
+              return ` ${ctx.parsed.x ?? ctx.parsed.y} respostas (${pct}%)`;
+            }
+          }
+        }
+      },
+      scales: {
+        x: { grid: { display: false }, ticks: { font: { family: 'Poppins', size: 11 }, color: '#8A7B74' } },
+        y: { beginAtZero: true, grid: { color: '#F0E8E3' }, ticks: { font: { family: 'Poppins', size: 11 }, color: '#8A7B74', precision: 0 } }
+      }
+    }
+  });
+}
+
+/* -------- DADOS REAIS -------- */
+makePie('chart1', ['Sim', 'Não', 'Talvez'], [12, 1, 3]);
+makePie('chart2', ['Sim', 'Não', 'Talvez'], [13, 1, 2]);
+makePie('chart3', ['Sim', 'Não', 'Talvez'], [10, 3, 3]);
+makeBar('chart4', ['Sim, muito', 'Sim, um pouco', 'Não prejudica'], [13, 3, 0]);
+makeBar('chart5', ['Redes sociais', 'Sites e anúncios', 'TV e rádio', 'Indicação', 'Panfletos'], [10, 4, 1, 1, 0], true);
+
+/* SMOOTH SCROLL COM OFFSET */
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+  link.addEventListener('click', e => {
+    const target = document.querySelector(link.getAttribute('href'));
+    if (!target) return;
+    e.preventDefault();
+    const top = target.getBoundingClientRect().top + window.scrollY - 70;
+    window.scrollTo({ top, behavior: 'smooth' });
+  });
+});
+</script>
+</body>
+</html>
