@@ -124,7 +124,7 @@ O projeto foi construído como página única (single page), com CSS e JavaScrip
 
 5. Clique em Save
 
-Seu site estará disponível em: https://larissaoliveiralcro.github.io/labellemakertingdigital/
+Seu site estará disponível em: https://github.com/larissaoliveiralcro/labellemakertingdigital
 
 🤖 Sobre o uso de Inteligência Artificial
 
