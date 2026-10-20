@@ -22,97 +22,85 @@ Geral: explicar como estratégias de Marketing Digital podem ajudar pequenos neg
 
 Específicos:
 
-Compreender os conceitos de Marketing Digital e tráfego pago;
+- Compreender os conceitos de Marketing Digital e tráfego pago;
 
-Investigar, por meio de pesquisa de campo, o impacto da divulgação nas vendas;
+- Investigar, por meio de pesquisa de campo, o impacto da divulgação nas vendas;
 
-Analisar os dados coletados e identificar o problema central da La Belle;
+- Analisar os dados coletados e identificar o problema central da La Belle;
 
-Propor um plano de ação digital viável para a realidade do pequeno negócio.
+- Propor um plano de ação digital viável para a realidade do pequeno negócio.
+  
 
 ✨ Funcionalidades
 
-🎨 Design responsivo com identidade visual sofisticada (paleta vinho, dourado e creme)
+- 🎨 Design responsivo com identidade visual sofisticada (paleta vinho, dourado e creme)
 
-📱 Menu mobile com botão hambúrguer e destaque automático da seção ativa
+- 📱 Menu mobile com botão hambúrguer e destaque automático da seção ativa
 
-📊 Gráficos interativos com Chart.js exibindo os dados reais da pesquisa
+- 📊 Gráficos interativos com Chart.js exibindo os dados reais da pesquisa
 
-🎬 Animações de scroll reveal com IntersectionObserver
+- 🎬 Animações de scroll reveal com IntersectionObserver
 
-🔝 Botão "voltar ao topo" flutuante
+- 🔝 Botão "voltar ao topo" flutuante
 
-🧭 Rolagem suave com compensação do menu fixo
+- 🧭 Rolagem suave com compensação do menu fixo
 
-♿ Acessibilidade com aria-labels, HTML semântico e contraste adequado
+- ♿ Acessibilidade com aria-labels, HTML semântico e contraste adequado
+  
 
 🗂️ Estrutura do site
 
-🏠 Início — Apresentação do projeto, integrantes, situação-problema e objetivo
+- 🏠 Início — Apresentação do projeto, integrantes, situação-problema e objetivo
 
-📚 Tema — Definições, importância do marketing, atividades e exemplos práticos
+- 📚 Tema — Definições, importância do marketing, atividades e exemplos práticos
 
-🔍 Pesquisa — Metodologia, questionário, gráficos de resultados e respostas abertas
+- 🔍 Pesquisa — Metodologia, questionário, gráficos de resultados e respostas abertas
 
-📈 Análise — Interpretação dos dados e opinião fundamentada do grupo
+- 📈 Análise — Interpretação dos dados e opinião fundamentada do grupo
 
-💡 Solução — Plano de Marketing Digital com 6 etapas de implementação
+- 💡 Solução — Plano de Marketing Digital com 6 etapas de implementação
 
-✅ Conclusão — Reflexões individuais, diário de uso de IA e fontes
+- ✅ Conclusão — Reflexões individuais, diário de uso de IA e fontes
+  
 
 📊 Principais resultados da pesquisa
 
-Conhecem novas empresas por meio de propagandas — 81,3%
+- Conhecem novas empresas por meio de propagandas — 81,3%
 
-Acreditam que a falta de divulgação prejudica muito o crescimento — 81,3%
+- Acreditam que a falta de divulgação prejudica muito o crescimento — 81,3%
 
-Já deixaram de comprar por não conhecer a empresa — 62,5%
+- Já deixaram de comprar por não conhecer a empresa — 62,5%
 
-Conhecem alguma empresa com pouca divulgação — 75%
+- Conhecem alguma empresa com pouca divulgação — 75%
 
-Valorizam redes sociais como principal meio — 62,5%
+- Valorizam redes sociais como principal meio — 62,5%
 
-Consideram panfletos importantes — 0%
+- Consideram panfletos importantes — 0%
+  
 
 🛠️ Tecnologias utilizadas
 
-HTML5 — estrutura semântica
+- HTML5 — estrutura semântica
 
-CSS3 — variáveis CSS, grid, flexbox, animações
+- CSS3 — variáveis CSS, grid, flexbox, animações
 
-JavaScript (Vanilla) — interatividade, scroll spy, IntersectionObserver
+- JavaScript (Vanilla) — interatividade, scroll spy, IntersectionObserver
 
-Chart.js 4.4.1 — gráficos interativos (via CDN)
+- Chart.js 4.4.1 — gráficos interativos (via CDN)
 
-Google Fonts — Playfair Display e Poppins
+- Google Fonts — Playfair Display e Poppins
 
 Não há dependências de build, frameworks ou npm install. Basta abrir o index.html no navegador.
 
+
 🚀 Como executar localmente
 
-Opção 1 — Abrir direto no navegador
+- Abrir direto no navegador
 
-Clone o repositório:
+[larissaoliveiralcro](https://larissaoliveiralcro.github.io/labellemakertingdigital/)
 
-git clone https://github.com/seu-usuario/la-belle-marketing.git
 
-Acesse a pasta:
 
-cd la-belle-marketing
-
-Depois, basta abrir o arquivo index.html no navegador.
-
-Opção 2 — Servidor local (recomendado)
-
-Com Python 3:
-
-python -m http.server 8000
-
-Com Node.js:
-
-npx serve
-
-Depois acesse: http://localhost:8000
 
 📁 Estrutura do projeto
 
@@ -125,35 +113,35 @@ O projeto foi construído como página única (single page), com CSS e JavaScrip
 
 🌐 Deploy no GitHub Pages
 
-Faça o push do projeto para um repositório no GitHub
+1. Faça o push do projeto para um repositório no GitHub
 
-Vá em Settings → Pages
+2. Vá em Settings → Pages
 
-Em Source, selecione Deploy from a branch
+3. Em Source, selecione Deploy from a branch
 
-Escolha a branch main e a pasta / (root)
+4. Escolha a branch main e a pasta / (root)
 
-Clique em Save
+5. Clique em Save
 
-Seu site estará disponível em: https://seu-usuario.github.io/la-belle-marketing/
+Seu site estará disponível em: https://larissaoliveiralcro.github.io/labellemakertingdigital/
 
 🤖 Sobre o uso de Inteligência Artificial
 
-O projeto adota uma postura de transparência total quanto ao uso de IA. Todas as interações com ferramentas como Gemini e ChatGPT estão documentadas no site, na seção Diário de Utilização da IA, com:
+O projeto adota uma postura de transparência total quanto ao uso de IA. Todas as interações com ferramentas como ChatGPT estão documentadas no site, na seção Diário de Utilização da IA, com:
 
-📅 Data da interação
+- 📅 Data da interação
 
-🛠️ Ferramenta utilizada
+- 🛠️ Ferramenta utilizada
 
-💬 O que foi solicitado
+- 💬 O que foi solicitado
 
-✅ Como a resposta foi aplicada
+- ✅ Como a resposta foi aplicada
 
 A IA foi utilizada como ferramenta de apoio à pesquisa, organização e programação — mas as decisões, a análise crítica e a adaptação do conteúdo foram feitas pelo grupo.
 
 👩‍🎓 Autoras
 
-Larissa Cabral de Oliveira — Pesquisa e análise de dados
+Larissa Cabral Reis de Oliveira — Pesquisa e análise de dados
 
 Livia Tayná Ferreira da Silva — Pesquisa e redação
 
@@ -161,15 +149,15 @@ Maria Clara Risi — Análise e desenvolvimento
 
 📚 Referências
 
-KOTLER, Philip. Marketing 4.0. Rio de Janeiro: Sextante, 2017.
+- KOTLER, Philip. Marketing 4.0. Rio de Janeiro: Sextante, 2017.
 
-SEBRAE. Marketing Digital para pequenas empresas.
+- SEBRAE. Marketing Digital para pequenas empresas.
 
-ROCK CONTENT. Guia completo de Marketing Digital.
+- ROCK CONTENT. Guia completo de Marketing Digital.
 
-THINK WITH GOOGLE. Tendências de consumo e comportamento digital.
+- THINK WITH GOOGLE. Tendências de consumo e comportamento digital.
 
-INSTAGRAM BUSINESS. Central de Ajuda para Empresas.
+- INSTAGRAM BUSINESS. Central de Ajuda para Empresas.
 
 📝 Licença
 
