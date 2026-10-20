@@ -2,9 +2,9 @@
 
 Site acadêmico do projeto de Administração sobre como o Marketing Digital pode ajudar pequenos negócios a conquistar clientes, fortalecer a marca e aumentar seus resultados.
 
-Badges (cole exatamente assim na primeira linha, cada um em sequência):
+[Badges (cole exatamente assim na primeira linha, cada um em sequência):
 
-https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black https://img.shields.io/badge/Chart.js-FF6384?style=for-the-badge&logo=chartdotjs&logoColor=white https://img.shields.io/badge/license-MIT-green?style=for-the-badge
+https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black https://img.shields.io/badge/Chart.js-FF6384?style=for-the-badge&logo=chartdotjs&logoColor=white https://img.shields.io/badge/license-MIT-green?style=for-the-badge](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black https://img.shields.io/badge/Chart.js-FF6384?style=for-the-badge&logo=chartdotjs&logoColor=white https://img.shields.io/badge/license-MIT-green?style=for-the-badge)
 
 📖 Sobre o projeto
 
