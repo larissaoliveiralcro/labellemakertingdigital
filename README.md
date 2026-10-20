@@ -98,7 +98,7 @@ Não há dependências de build, frameworks ou npm install. Basta abrir o index.
 
 - Abrir direto no navegador
 
-[[larissaoliveiralcro](https://larissaoliveiralcro.github.io/labellemarketingdigital/)](https://larissaoliveiralcro.github.io/labellemakertingdigital/)
+[(https://larissaoliveiralcro.github.io/labellemarketingdigital/)](https://larissaoliveiralcro.github.io/labellemakertingdigital/)
 
 
 
