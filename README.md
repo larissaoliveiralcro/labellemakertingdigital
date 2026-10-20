@@ -2,8 +2,11 @@
 
 Site acadêmico do projeto de Administração sobre como o Marketing Digital pode ajudar pequenos negócios a conquistar clientes, fortalecer a marca e aumentar seus resultados.
 
-https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black https://img.shields.io/badge/Chart.js-FF6384?style=for-the-badge&logo=chartdotjs&logoColor=white https://img.shields.io/badge/license-MIT-green?style=for-the-badge](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black https://img.shields.io/badge/Chart.js-FF6384?style=for-the-badge&logo=chartdotjs&logoColor=white https://img.shields.io/badge/license-MIT-green?style=for-the-badge)
-
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![Chart.js](https://img.shields.io/badge/Chart.js-FF6384?style=for-the-badge&logo=chartdotjs&logoColor=white)
+![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)
 📖 Sobre o projeto
 
 Este site foi desenvolvido como atividade acadêmica do curso de Administração e apresenta uma pesquisa completa sobre os impactos da divulgação digital em pequenos negócios, tendo como estudo de caso a empresa La Belle, do ramo de roupas e acessórios.
